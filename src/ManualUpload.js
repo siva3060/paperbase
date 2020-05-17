@@ -1,5 +1,7 @@
 import React ,{useState} from 'react';
+import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { Input } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 const styles = (theme) => ({
@@ -10,7 +12,7 @@ const styles = (theme) => ({
   });
   
 
-function FileUpload(props){
+function ManualUpload(props){
 
     const {classes} = props;
     const [file, setFile] = useState(null);
@@ -56,6 +58,7 @@ function FileUpload(props){
 
     return(
         <form  noValidate autoComplete="off">
+            <h1>Manual Uplaod Panel</h1>
         <input
                 onChange={(e) => setFile(e.target.files[0])}
                 id="raised-button-file"
@@ -70,4 +73,4 @@ function FileUpload(props){
         </form>
     );
 }
- export default withStyles(styles)(FileUpload);
+ export default withStyles(styles)(ManualUpload);

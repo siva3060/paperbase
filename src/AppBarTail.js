@@ -1,131 +1,122 @@
-import React from 'react'; 
 
-import PropTypes from 'prop-types'; 
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import { withStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 
-import AppBar from '@material-ui/core/AppBar'; 
 
-import FileUpload from './FileUpload'; 
 
-import Toolbar from '@material-ui/core/Toolbar'; 
+const styles = (theme) => ({
+  secondaryBar: {
+    zIndex: 0,
+  },
+});
 
-import Typography from '@material-ui/core/Typography'; 
 
-import Paper from '@material-ui/core/Paper'; 
+//based on these categories we need to generate the header Tail
+//categorie array of objects
 
-import Grid from '@material-ui/core/Grid'; 
+const categories =[
+ { id: 'File Upload', 
+  children : [
+      'File Upload',
+      'Manual Upload'
+    ]
+  },
+  { id: 'Database', children : [
+    'Current Day Records',
+    'Monthly Records'
+  ]
+},
+{ id: 'Functions', children : [
+  'Label#1',
+  'Label#2'
+]
+},
+{ id: 'Statistics', children : [
+  'Label#1',
+  'Label#2'
+]
+},
+]
 
-import Button from '@material-ui/core/Button'; 
+function AppBarTail(props){
 
-import TextField from '@material-ui/core/TextField'; 
+  const result = categories.filter(
+    target => {
+          return target.id === props.data
+    }
+  )
 
-import Tooltip from '@material-ui/core/Tooltip'; 
+  // const result = categories.find(element=>{
+  //   if((element.id).localeCompare(props.data)){
+  //     console.log("element-id"+element.id)
+  //     return element;
+  //   }
+  // })
 
-import IconButton from '@material-ui/core/IconButton'; 
+  //A function that gets the children properties based on the props.data
+  //  const result = categories.filter(function(item){
+  //        if(!(item.id).localeCompare(props.data)){
+  //          return item;
+  //        }
+  //      });
 
-import { withStyles } from '@material-ui/core/styles'; 
+  const tabArray = result[0].children;
+  console.log(props);
+  console.log(props.data);
+  console.log(result);
+  console.log(tabArray);
 
-import SearchIcon from '@material-ui/icons/Search'; 
-
-import RefreshIcon from '@material-ui/icons/Refresh'; 
-
-import { Input } from '@material-ui/core'; 
-
+//
+ 
   
+  const {classes,handleTabChange} = props;
+// based onthe props.data we need to genrate the menue
 
-const styles = (theme) => ({ 
+      /**For the corresponding get the children tabs and generate 
+       * Filitering the array for target arrayItem
+       */
+      //  const categorie = categories.filter(function(item){
+      //    if(!(item.id).localeCompare(props.data)){
+      //      return item;
+      //    }
+      //  });
 
-  paper: { 
+      //  console.log(categorie);
 
-    maxWidth: 936, 
+      // const categorie = categories.filter((element)=>{
+      //    if(!(element.id).localeCompare(props.data)){
+      //      return element.children;
+      //    }
+      // })
 
-    margin: 'auto', 
+      //console.log(categorie[0].children);
 
-    overflow: 'hidden', 
+        //handling Tab Change
+        const [value, setValue] = React.useState('File Upload');
 
-  }, 
+        const handleChange = (event, newValue) => {
+          setValue(newValue);
+        };
 
-  searchBar: { 
-
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)', 
-
-  }, 
-
-  searchInput: { 
-
-    fontSize: theme.typography.fontSize, 
-
-  }, 
-
-  block: { 
-
-    display: 'block', 
-
-  }, 
-
-  addUser: { 
-
-    marginRight: theme.spacing(1), 
-
-  }, 
-
-  contentWrapper: { 
-
-    margin: '40px 16px', 
-
-  }, 
-
-}); 
-
-  
-
-function Content(props) { 
-
-  const { classes } = props; 
-
-  
-
-  return ( 
-
-    <Paper className={classes.paper}> 
-
-      <AppBar className={classes.searchBar} position="static"  
-
-      color="default" elevation={0}> 
-
-        <Toolbar> 
-
-          <FileUpload/> 
-
-        </Toolbar> 
-
-      </AppBar> 
-
-      {/* //Recent upload history */} 
-
-      <div className={classes.contentWrapper}> 
-
-        <Typography color="textSecondary" align="center"> 
-
-         Need to populate with File history.... 
-
-        </Typography> 
-
-      </div> 
-
-    </Paper> 
-
-  ); 
-
-} 
-
-  
-
-Content.propTypes = { 
-
-  classes: PropTypes.object.isRequired, 
-
-}; 
-
-  
-
-export default withStyles(styles)(Content); 
+  return(
+      <AppBar
+      component="div"
+      className={classes.secondaryBar}
+      color="primary"
+      position="static"
+      elevation={0}
+    >
+      <Tabs value={0} 
+      onChange = {handleTabChange}
+      textColor="inherit">
+         { tabArray.map((element) => (
+            <Tab  textColor = "inherit" label = {element}/>
+         ))}
+      </Tabs>
+    </AppBar>
+  );
+}
+export default withStyles(styles)(AppBarTail);
