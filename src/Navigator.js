@@ -22,6 +22,7 @@ const categories = [
     id: 'HCL',
     children: [
       {id :'File Upload', icon : <CloudUploadIcon /> },
+      { id: 'App Status', icon: <SettingsEthernetIcon /> },
       { id: 'Database', icon: <DnsRoundedIcon /> },
       { id: 'Functions', icon: <SettingsEthernetIcon /> },
       {id :'Statistics', icon : < EqualizerIcon/> },

@@ -1,6 +1,7 @@
 import React ,{useState} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const styles = (theme) => ({
     input: {
@@ -13,6 +14,7 @@ const styles = (theme) => ({
 function FileUpload(props){
 
     const {classes} = props;
+
     const [file, setFile] = useState(null);
 
     //after the file is uploaded 
@@ -39,28 +41,55 @@ function FileUpload(props){
 		else{
 			return false;
 		}
+	//end of is ValidFile Method 
+	}
+
+	const connectAndResponse =  (formData) => {
+
+		console.log("Connecting  to remote server");
+		console.log(formData)
+
+	//const response = llllll axios.post("http://15.188.74.126:8082/Upload",
+	 axios({
+		 url:"http://15.188.74.126:8082/upload",
+		 method:'POST',
+		 data:formData,
+	 }).then((response)=>{
+		 console.log(response);
+	 });
+
+		//console.log(response);
+	//method to connect and get respone 
 	}
 
 	//after the submit button clicked 
 	const onClickHandler=()=>{
 		if(isValidFile()){
-		const data = new FormData();
-		data.append('file',file);
-		alert("server yet to configure");
+		const formData = new FormData();
+		console.log(file);
+		formData.append('uploadedFile',file);
+		console.log(formData);
+		const resp = connectAndResponse(formData);
+		alert("File has been uploaded")
 		//use the axios API to send the file 
-		}else{
+		}
+		else
+		{
 		alert("Enter a file with valid format");
 		}
+	//end of Onclickhandler
 	}
 
 
     return(
+
         <form  noValidate autoComplete="off">
         <input
                 onChange={(e) => setFile(e.target.files[0])}
                 id="raised-button-file"
                 multiple
                 type="file"
+	    	name="uploadedFile"
                 />
         <Button variant="contained" 
             onClick ={onClickHandler}
@@ -69,5 +98,7 @@ function FileUpload(props){
         </Button>
         </form>
     );
+
+	//end of FileUpload Component
 }
  export default withStyles(styles)(FileUpload);
