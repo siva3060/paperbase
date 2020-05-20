@@ -51,7 +51,7 @@ function FileUpload(props){
 
 	//const response = llllll axios.post("http://15.188.74.126:8082/Upload",
 	 axios({
-		 url:"http://15.188.74.126:8082/upload",
+		 url:"http://15.188.74.126:8086/candidate-csv",
 		 method:'POST',
 		 data:formData,
 	 }).then((response)=>{
