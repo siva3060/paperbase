@@ -36,7 +36,6 @@ function Header(props) {
     <React.Fragment>
       <AppBarHeader />
       <AppBarBody data = {props.headerBodyData} />
-      <AppBarTail data = {props.headerBodyData} handleTabChange = {props.handleTabChange}/>
     </React.Fragment>
   );
 }

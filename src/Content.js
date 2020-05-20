@@ -32,21 +32,21 @@ const styles = (theme) => ({
 
 function Content(props) {
   const { classes } = props;
+  const msg = "Upload the file for "
+  
 
   return (
     <Paper className={classes.paper}>
       <AppBar className={classes.searchBar} position="static" 
       color="default" elevation={0}>
         <Toolbar>
+          <p> {msg + props.contentFeed}</p>
+        </Toolbar>
+        <Toolbar>
           <FileUpload/>
         </Toolbar>
       </AppBar>
       {/* //Recent upload history */}
-      <div className={classes.contentWrapper}>
-        <Typography color="textSecondary" align="center">
-         Need to populate with File history....
-        </Typography>
-      </div>
     </Paper>
   );
 }

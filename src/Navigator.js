@@ -21,22 +21,9 @@ const categories = [
   {
     id: 'HCL',
     children: [
-      {id :'File Upload', icon : <CloudUploadIcon /> },
-      { id: 'App Status', icon: <SettingsEthernetIcon /> },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      {id :'Statistics', icon : < EqualizerIcon/> },
+      {id :'Compliance ', icon : <CloudUploadIcon /> },
+      {id :'Candiate Screening', icon : <CloudUploadIcon /> },
       
-    ],
-  },
-  {
-    id: 'ING',
-    children: [
-     
-      {id :'File Upload', icon : <CloudUploadIcon /> },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      {id :'Statistics', icon : < EqualizerIcon/> }, 
     ],
   },
 ];
@@ -120,7 +107,7 @@ function Navigator(props) {
               <ListItem
                 key={childId}
                 button
-                onClick = {()=> props.handleclick(id,childId)}
+                onClick = {()=> props.handleclick(childId)}
                 className={clsx(classes.item, active && classes.itemActiveItem)}
                 //Implement the on click function here 
               >

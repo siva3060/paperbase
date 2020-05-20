@@ -171,16 +171,15 @@ function Paperbase(props) {
   const { classes } = props;
   
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [headerBodyData,setHeaderBodyData] = React.useState("File Upload");
-
-  const [pageContent,setPageContent] = React.useState("File Upload");
+  const [headerBodyData,setHeaderBodyData] = React.useState("Compliance ");
+  const [pageContent,setPageContent] = React.useState("Candidate Screening");
   
 
   const handleTabChange = ()=>{
       setPageContent()
   }
   
-  const parentHandleClick = (parent,child)=>{
+  const parentHandleClick = (child)=>{
       setHeaderBodyData(child);
       setPageContent(child);
    };
@@ -215,7 +214,6 @@ function Paperbase(props) {
         <div className={classes.app}>
           <Header 
           headerBodyData = {headerBodyData} 
-          handleTabChange = {handleTabChange}
           onDrawerToggle={handleDrawerToggle} 
           />
           <main className={classes.main}>
