@@ -100,7 +100,7 @@ function FileUpload(){
 		if(uploadCompleted){
 	 axios({
 		 url:"http://15.188.74.126:8086/compliance",
-		 method:'POST',
+		 method:'GET',
 	 }).then((response)=>{
 		 console.log(response);
 	 });

@@ -69,7 +69,7 @@ function FailedCallRecords(){
 		console.log(query)
 		 axios({
 			 url:('http://15.188.174.126:8086/compliance?ecode='+query),
-			 method:'POST',
+			 method:'GET',
 			 }).then((response) =>{
 				 console.log(response);
 			 });
@@ -83,10 +83,11 @@ function FailedCallRecords(){
 	}
 
 	//no records picked 
-	const handleAllCall=()=>{
-		 axios({
-			 url:('http://15.188.174.126:8086/compliance'),
-			 method:'POST',
+	const handleAllCall=async ()=>{
+		console.log("Calling the all the people")
+		  await axios({
+			 url:('http://15.188.74.126:8086/compliance'),
+			 method:'GET',
 			 }).then((response) =>{
 				 console.log(response);
 			 });
