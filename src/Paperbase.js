@@ -1,4 +1,4 @@
-
+import FailedCallRecords from './Compliance/FailedCallRecords';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
@@ -9,8 +9,12 @@ import Link from '@material-ui/core/Link';
 import Navigator from './Navigator.js';
 import Content from './Content.js';
 import Header from './Header.js';
+import FileUpload from  './Compliance/FileUpload.js'
+//import  FileUpload from './FileUpload.js'
+
 
 function Copyright() {
+
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -22,6 +26,7 @@ function Copyright() {
     </Typography>
   );
 }
+
 
 let theme = createMuiTheme({
   palette: {
@@ -171,20 +176,30 @@ function Paperbase(props) {
   const { classes } = props;
   
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [headerBodyData,setHeaderBodyData] = React.useState("Compliance ");
-  const [pageContent,setPageContent] = React.useState("Candidate Screening");
+  const [headerBodyData,setHeaderBodyData] = React.useState("File Upload ");
+  const [pageContent,setPageContent] = React.useState(<FileUpload />);
   
 
-  const handleTabChange = ()=>{
-      setPageContent()
+  const contentSelection = (viewName) => {
+
+	  switch(viewName){
+		  case "File Upload" : return <FileUpload />
+		  case "CallFailed Records": return <FailedCallRecords />
+	  }
   }
   
   const parentHandleClick = (child)=>{
-      setHeaderBodyData(child);
-      setPageContent(child);
+	   console.log("menu items faileure")
+	      console.log(child)
+	      setHeaderBodyData(child);
+	      const selected = contentSelection(child);
+	   
+	      console.log(selected);
+	      setPageContent(selected);
    };
 
   
+            //<Content contentFeed = {pageContent}/>
 
 
   const handleDrawerToggle = () => {
@@ -200,7 +215,6 @@ function Paperbase(props) {
         <nav className={classes.drawer}>
           <Hidden smUp implementation="js">
             <Navigator
-              
               PaperProps={{ style: { width: drawerWidth } }}
               variant="temporary"
               open={mobileOpen}
@@ -217,7 +231,7 @@ function Paperbase(props) {
           onDrawerToggle={handleDrawerToggle} 
           />
           <main className={classes.main}>
-            <Content contentFeed = {pageContent}/>
+	   {pageContent} 
           </main>
           <footer className={classes.footer}>
             <Copyright />

@@ -46,10 +46,6 @@ function FileUpload(props){
 
 	const connectAndResponse =  (formData) => {
 
-		console.log("Connecting  to remote server");
-		console.log(formData)
-
-	//const response = llllll axios.post("http://15.188.74.126:8082/Upload",
 	 axios({
 		 url:"http://15.188.74.126:8086/candidate-csv",
 		 method:'POST',
@@ -60,7 +56,7 @@ function FileUpload(props){
 	
 		setFile("");
 
-		//console.log(response);
+	
 	//method to connect and get respone 
 	}
 

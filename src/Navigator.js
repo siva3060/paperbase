@@ -1,4 +1,5 @@
 
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -17,17 +18,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
 import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
 
+//Menu Items
 const categories = [
-  {
-    id: 'HCL',
-    children: [
-      {id :'Compliance ', icon : <CloudUploadIcon /> },
-      {id :'Candiate Screening', icon : <CloudUploadIcon /> },
-      
-    ],
-  },
-];
+      {id :'File Upload', icon : <CloudUploadIcon /> },
+      {id :'CallFailed Records', icon : <CloudUploadIcon /> },
+    ];
 
+//Pane Theme
 const styles = (theme) => ({
   categoryHeader: {
     paddingTop: theme.spacing(2),
@@ -69,62 +66,42 @@ const styles = (theme) => ({
   },
 });
 
+
 function Navigator(props) {
   const { classes,...other } = props;
-  //console.log(props);
+
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          HCL
-        </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
-          <ListItemIcon className={classes.itemIcon}>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            classes={{
-              primary: classes.itemPrimary,
-            }}
-          >
-           HOME
-          </ListItemText>
-          
+	  	<Typography variant="h4"  >
+	  		HCL
+	   	</Typography>
         </ListItem>
-        
-        {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
-            <ListItem className={classes.categoryHeader}>
-              <ListItemText
-                classes={{
-                  primary: classes.categoryHeaderPrimary,
-                }}
-              >
-                {id}
-              </ListItemText>
-            </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
+
+        <ListItem className={clsx(classes.item, classes.itemCategory)}>
+		  <ListItemIcon className={classes.itemIcon}>
+		    <HomeIcon />
+		  </ListItemIcon>
+		  <ListItemText classes={{primary: classes.itemPrimary,}}>
+		   COMPLIANCE
+		  </ListItemText>
+        </ListItem>
+
+            {categories.map(({id,icon}) => (
               <ListItem
-                key={childId}
+                key={id}
                 button
-                onClick = {()=> props.handleclick(childId)}
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-                //Implement the on click function here 
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
-                >
-                  {childId}
+                onClick = {()=> props.handleclick(id)}
+                className={clsx(classes.item, classes.itemActiveItem)}>
+
+		<ListItemText   className={classes.categoryHeaderPrimary}>
+                  {id}
                 </ListItemText>
+
               </ListItem>
             ))}
 
-            <Divider className={classes.divider} />
-          </React.Fragment>
-        ))}
       </List>
     </Drawer>
   );
