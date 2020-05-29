@@ -68,7 +68,7 @@ function FailedCallRecords(){
 		const query = selectedItems.join()
 		console.log(query)
 		 axios({
-			 url:('http://15.188.174.126:8086/compliance?ecode='+query),
+			 url:('http://15.188.74.126:8086/compliance?ecode='+query),
 			 method:'GET',
 			 }).then((response) =>{
 				 console.log(response);
