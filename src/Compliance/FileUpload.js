@@ -65,6 +65,7 @@ function FileUpload(){
 		 method:'POST',
 		 data:formData,
 	 }).then((response)=>{
+		 console.log("Repsone from the server ");
 		 console.log(response);
 		 if(response.statue == 'OK' || response.statue == '200'){
 			 setUploadCompleted(true);
@@ -79,8 +80,10 @@ function FileUpload(){
 	const onClickHandler=()=>{
 		if(isValidComplianceFile() && isValidMasterFile()){
 		const formData = new FormData();
-		formData.append('complianceFile',complianceFile);
-		formData.append('masterFile',masterFile);
+		console.log(complianceFile);
+		console.log(masterFile);
+		formData.append('Compliance',complianceFile);
+		formData.append('master_compliance',masterFile);
 		console.log(formData);
 		const resp = connectAndResponse(formData);
 		alert("File has been uploaded")
