@@ -57,6 +57,8 @@ function FileUpload(props){
 	 }).then((response)=>{
 		 console.log(response);
 	 });
+	
+		setFile("");
 
 		//console.log(response);
 	//method to connect and get respone 
@@ -67,7 +69,7 @@ function FileUpload(props){
 		if(isValidFile()){
 		const formData = new FormData();
 		console.log(file);
-		formData.append('uploadedFile',file);
+		formData.append('file',file);
 		console.log(formData);
 		const resp = connectAndResponse(formData);
 		alert("File has been uploaded")
