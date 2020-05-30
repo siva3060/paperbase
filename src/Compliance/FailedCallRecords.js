@@ -76,12 +76,23 @@ function FailedCallRecords(){
 	}
 
 	const handleChange = ({empCode})=>{
-		//push the SAP code
-		console.log("record Selected ")
-		console.log(empCode)
-		selectedItems.push(empCode)
-	}
 
+		if(selectedItems.length == 0){
+			console.log("record added"+empCode)
+			console.log(selectedItems)
+			selectedItems.push(empCode)
+		}else{
+		 if(selectedItems.indexOf(empCode) >= 0){
+			console.log("record removed"+empCode)
+			console.log(selectedItems)
+			selectedItems.pop(empCode)
+		}else{
+			console.log("record added"+empCode)
+			console.log(selectedItems)
+			selectedItems.push(empCode)
+		}}
+
+	}
 	//no records picked 
 	const handleAllCall=async ()=>{
 		console.log("Calling the all the people")
