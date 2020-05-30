@@ -62,6 +62,7 @@ function FileUpload(){
 	const connectAndResponse =  (formData) => {
 	 axios({
 		 url:"http://15.188.74.126:8086/compliance-csv",
+		 //url:"http://15.188.74.126:8082/multiupload",
 		 method:'POST',
 		 data:formData,
 	 }).then((response)=>{
