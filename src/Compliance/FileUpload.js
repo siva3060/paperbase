@@ -98,16 +98,12 @@ function FileUpload(){
 	}
 
 	const handleUploadCall = () => {
-		if(uploadCompleted){
 	 axios({
 		 url:"http://15.188.74.126:8086/compliance",
 		 method:'GET',
-	 }).then((response)=>{
+	   }).then((response)=>{
 		 console.log(response);
 	 });
-		}else{
-			alert("File not uploaded yet")
-		}
 	}
 
 	const isValidComplianceFile = ()=>{
@@ -182,7 +178,7 @@ function FileUpload(){
 			className = {classes.button} 
 			onClick={handleUploadCall}
 			startIcon={<CloudUploadIcon />}>
-				Call Uploads
+				Call now
 			</Button>
 		  </CardActions>
 		</Card>
