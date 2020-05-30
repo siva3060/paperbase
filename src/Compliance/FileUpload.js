@@ -83,8 +83,8 @@ function FileUpload(){
 		const formData = new FormData();
 		console.log(complianceFile);
 		console.log(masterFile);
-		formData.append('file',complianceFile);
 		formData.append('file',masterFile);
+		formData.append('file',complianceFile);
 		console.log(formData);
 		const resp = connectAndResponse(formData);
 		alert("File has been uploaded")

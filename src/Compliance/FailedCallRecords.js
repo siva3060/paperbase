@@ -109,12 +109,14 @@ function FailedCallRecords(){
 		console.log("Fetching data from API ")
 		const result = await axios('http://15.188.74.126:8086/incomplete-compliance-calls',);
 		console.log(result)
+		//const {empCode,empName,projectName,reportingMgr} = result.data
+		//setRecords({empCode,empName,projectName,reportingMgr} )
 		setRecords(result.data)
 		};
 		fetchData();
 	},[]);
 
-
+//}{empCode,empName,projectName,reportingMgr} 
 	return(
 
 	   <Card>
