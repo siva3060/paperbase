@@ -1,10 +1,8 @@
 import InputBase from '@material-ui/core/InputBase'
-
 import TextField from '@material-ui/core/TextField';
 import { TableCell } from '@material-ui/core';
 import { TableRow } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-//import Dropzone from 'react-dropzone';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import { CardContent } from '@material-ui/core'
@@ -14,7 +12,10 @@ import Input from '@material-ui/core/Input'
 import React,{useState} from 'react'
 import axios from 'axios'
 import Button from '@material-ui/core/Button';
+
+//Importing Icons
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CallIcon from '@material-ui/icons/Call';
 
 
 //TODO :
@@ -54,59 +55,56 @@ const useStyles	= makeStyles((theme) => ({
 function FileUpload(){
 
 	const classes = useStyles();
+
 	const [masterFile,setMasterFile] = useState(null);
 	const [complianceFile,setComplianceFile] = useState(null);
 	const [uploadCompleted,setUploadCompleted] = useState(false);
 
 
-	const connectAndResponse =  (formData) => {
+	const connectAndResponse =  (formData,endpoint) => {
+
+	  	var endPoint = "http://15.188.74.126:8086/"+endpoint	
 	 axios({
-		 url:"http://15.188.74.126:8086/compliance-csv",
+		 url:endPoint,
 		 method:'POST',
 		 data:formData,
 	 }).then((response)=>{
 		 console.log("Repsone from the server ");
 		 console.log(response);
-		 if(response.statue == 'OK' || response.statue == '200'){
-			 setUploadCompleted(true);
-		 }
-	 });
+		 });
 	//method to connect and get respone 
 	}
 
 
 
 	//after the submit button clicked 
-	const onClickHandler=()=>{
-		if(isValidComplianceFile() && isValidMasterFile()){
-		const formData = new FormData();
-		console.log(complianceFile);
-		console.log(masterFile);
-		formData.append('file',complianceFile);
-		formData.append('file',masterFile);
-		console.log(formData);
-		const resp = connectAndResponse(formData);
-		alert("File has been uploaded")
-		//use the axios API to send the file 
-		}
-		else
-		{
-		alert("Enter a file with valid format");
-		}
+	const handleMasterClick=()=>{
+		if(isValidMasterFile()){
+		const masterFormData = new FormData();
+		masterFormData.append('file',masterFile);
+		const masterResp = connectAndResponse(masterFormData,"master-compliance-csv");
+			alert("Master file has been uploaded")
 	//end of Onclickhandler
 	}
+	}
 
-	const handleUploadCall = () => {
-		if(uploadCompleted){
+	const handleComplianceClick=()=>{
+		if(isValidComplianceFile()){
+		const complianceFormData = new FormData();
+		complianceFormData.append('file',complianceFile);
+		const complianceResp = connectAndResponse(complianceFormData,"compliance-csv");
+			alert("compliance file has been uploaded")
+	//end of Onclickhandler
+	}
+	}
+
+	const handleCall = () => {
 	 axios({
 		 url:"http://15.188.74.126:8086/compliance",
 		 method:'GET',
 	 }).then((response)=>{
 		 console.log(response);
 	 });
-		}else{
-			alert("File not uploaded yet")
-		}
 	}
 
 	const isValidComplianceFile = ()=>{
@@ -122,6 +120,7 @@ function FileUpload(){
 		}
 	}
 
+
 	const isValidMasterFile=()=> {
 	      const masterFileLength = masterFile.name.split(".");
 	      const masterFileExtension = masterFileLength[1];
@@ -136,12 +135,11 @@ function FileUpload(){
 	//end of is ValidFile Method 
 	}
 
-	const checkUploadStatus = ()=>{
-	}
 
 	return(
 		<Card className={classes.root}>
 		  <CardContent>
+
 			<TableRow>
 				<StyledTableCell variant="header">
 					Master File 
@@ -153,7 +151,17 @@ function FileUpload(){
 					 multiple
 					 type="file" />
 				</TableCell>
+				<TableCell>
+					<Button variant="contained" 
+					color="primary" 
+					className = {classes.button} 
+					onClick={handleMasterClick}
+					startIcon={<CloudUploadIcon />}>
+						upload
+					</Button>
+				</TableCell>
 			</TableRow>
+
 			<TableRow>
 				<StyledTableCell variant ="header">
 				     Compliance File 
@@ -165,6 +173,15 @@ function FileUpload(){
 					 multiple
 					 type="file" />
 				</TableCell>
+				<TableCell>
+					<Button variant="contained" 
+					color="primary" 
+					className = {classes.button} 
+					onClick={handleComplianceClick}
+					startIcon={<CloudUploadIcon />}>
+						upload
+					</Button>
+				</TableCell>
 			</TableRow>
 		  </CardContent>
 
@@ -172,19 +189,12 @@ function FileUpload(){
 			<Button variant="contained" 
 			color="primary" 
 			className = {classes.button} 
-			onClick={onClickHandler}
-			startIcon={<CloudUploadIcon />}>
-				upload
-			</Button>
-			<Button variant="contained" 
-			color="primary" 
-			className = {classes.button} 
-			onClick={handleUploadCall}
-			startIcon={<CloudUploadIcon />}>
-				Call Uploads
+			onClick={handleCall}
+			startIcon={<CallIcon />}>
+				 Call Now 
 			</Button>
 		  </CardActions>
 		</Card>
 	);
-}
+}	
 export default FileUpload
